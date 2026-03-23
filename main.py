@@ -45,6 +45,17 @@ def load_tools(cli_tools=None):
     return tools
 
 
+def normalize_query_value(value):
+    if value is None:
+        return None
+
+    normalized = value.strip()
+    if not normalized:
+        return None
+
+    return normalized
+
+
 def main():
     parser = argparse.ArgumentParser(description="自动化子域名收集工具")
     parser.add_argument("-d", "--domain", help="要扫描的目标域名")
@@ -79,6 +90,9 @@ def main():
     )
 
     args = parser.parse_args()
+    summary_domain = normalize_query_value(args.s)
+    view_domain = normalize_query_value(args.v)
+    alive_domain = normalize_query_value(args.a)
 
     if args.list_tools:
         print("--- 当前已集成的工具模块 ---")
@@ -86,16 +100,25 @@ def main():
             print(f"- {tool}")
         return
 
-    if args.s:
-        show_summary(args.s)
+    if args.s is not None and summary_domain is None:
         return
 
-    if args.v:
-        show_view(domain=args.v)
+    if summary_domain:
+        show_summary(summary_domain)
         return
 
-    if args.a:
-        show_alive(args.a)
+    if args.v is not None and view_domain is None:
+        return
+
+    if view_domain:
+        show_view(domain=view_domain)
+        return
+
+    if args.a is not None and alive_domain is None:
+        return
+
+    if alive_domain:
+        show_alive(alive_domain)
         return
 
     targets = load_targets(args.domain, args.file)
