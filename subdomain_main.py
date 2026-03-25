@@ -1,10 +1,31 @@
 import argparse
+import sys
 
 from modules import get_supported_runners
 from modules.httpx import HttpxRunner
 from subdomain_collection import run_subdomain_collection
 from summary import show_summary
 from viewer import show_alive, show_view
+
+
+STARTUP_BANNER = (
+    "   ______     __      _____     _____           _______   ___           \n"
+    "  / ____/__  / /_    |__  /   _|__  /_______  _/__  / /_ <  /___  ____ _\n"
+    " / / __/ _ \\/ __/     /_ < | / //_ </ ___/ / / / / / __ \\/ / __ \\/ __ `/\n"
+    "/ /_/ /  __/ /_     ___/ / |/ /__/ / /  / /_/ / / / / / / / / / / /_/ / \n"
+    "\\____/\\___/\\__/____/____/|___/____/_/   \\__, / /_/_/ /_/ /_/ /_/\\__, /  \n"
+    "             /_____/                   /____/        /____/    /____/    "
+)
+STARTUP_SUBTITLE = "Get_3v3ry7h1ng_Fr4mw0rk - 自动化信息收集工具"
+
+
+def print_startup_banner(stream=None):
+    stream = stream or sys.stdout
+    if getattr(stream, "isatty", lambda: False)():
+        stream.write(f"\033[92m{STARTUP_BANNER}\n\n{STARTUP_SUBTITLE}\033[0m\n\n")
+        return
+
+    stream.write(f"{STARTUP_BANNER}\n\n{STARTUP_SUBTITLE}\n\n")
 
 
 def normalize_query_value(value):
@@ -71,6 +92,7 @@ def print_subdomain_usage_hint():
 
 
 def main(argv=None):
+    print_startup_banner()
     parser = build_parser()
     args = parser.parse_args(argv)
     summary_domain = normalize_query_value(args.s)
