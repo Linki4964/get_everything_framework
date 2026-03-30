@@ -2,7 +2,6 @@ import argparse
 import sys
 
 from modules import get_supported_runners
-from modules.httpx import HttpxRunner
 from subdomain_collection import run_subdomain_collection
 from summary import show_summary
 from viewer import show_alive, show_view
