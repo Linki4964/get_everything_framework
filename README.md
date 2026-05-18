@@ -1,5 +1,49 @@
 # 工具清单
 
+## 快速部署
+
+项目提供了 Windows 和 Linux 两套环境安装脚本，用于自动安装 Go、Python 依赖、系统工具和本框架需要调用的资产收集工具。
+
+Linux/WSL Bash 安装器：
+
+```bash
+bash scripts/install_linux.sh
+```
+
+Windows PowerShell 安装器：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install_windows.ps1
+```
+
+仅检查本机工具是否可用：
+
+```bash
+bash scripts/install_linux.sh --check-only
+```
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install_windows.ps1 -CheckOnly
+```
+
+同时安装需要 `cargo`/`git` 的可选工具：
+
+```bash
+bash scripts/install_linux.sh --with-optional
+```
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install_windows.ps1 -WithOptional
+```
+
+说明：
+
+- Windows 脚本优先使用 `winget` 安装 `Python`、`Go`、`Git`、`Nmap` 和 `Amass`。
+- Linux 脚本会自动识别 `apt`、`dnf`、`yum`、`pacman`、`zypper` 或 `apk`，安装 `python3`、`pip`、`go`、`git`、`nmap` 等基础工具。
+- `subfinder`、`dnsx`、`httpx`、`naabu`、`katana`、`alterx`、`shuffledns`、`assetfinder`、`gospider`、`waybackurls` 等会通过 `go install` 安装。
+- `feroxbuster` 和 `dirsearch` 属于可选工具，使用 `--with-optional` 或 `-WithOptional` 安装；Windows 下 `feroxbuster` 会从官方 GitHub Release 下载 `x86_64-windows-feroxbuster.exe.zip`。
+- 如果安装后命令找不到，请重开终端；脚本会把 Go 的 bin 目录加入当前会话，并尽量写入用户 PATH。
+
 
 ## 公司信息收集
 
