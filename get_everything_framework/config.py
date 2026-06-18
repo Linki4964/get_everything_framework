@@ -121,12 +121,7 @@ def build_tool_config(path, category, **kwargs):
 # 子域名收集
 # ═══════════════════════════════════════════════════════════
 
-AMASS_CONFIG = build_tool_config(
-    "amass", "subdomain",
-    timeout=30,
-    passive=True,
-    silent=True,
-)
+AMASS_CONFIG = build_tool_config("amass", "subdomain")
 
 AMASS_INTEL_CONFIG = build_tool_config(
     "amass", "subdomain",
