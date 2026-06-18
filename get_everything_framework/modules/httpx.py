@@ -209,7 +209,9 @@ class HttpxRunner(BaseRunner):
         try:
             if not self._execute(cmd, domain):
                 raise RuntimeError("httpx 扫描失败，请检查 httpx 可执行文件和当前 PATH。")
-            return self._read_json_results(output_file)
+            # 提取 URL 列表 (数据库期望字符串列表)
+            raw = self._read_json_results(output_file)
+            return [r.get("url") for r in raw if r.get("url")]
         finally:
             if os.path.exists(input_file):
                 os.remove(input_file)
