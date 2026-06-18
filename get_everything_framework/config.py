@@ -125,7 +125,7 @@ AMASS_CONFIG = build_tool_config("amass", "subdomain")
 
 AMASS_INTEL_CONFIG = build_tool_config(
     "amass", "subdomain",
-    timeout=60,
+    timeout=120,
 )
 
 SUBFINDER_CONFIG = build_tool_config(
@@ -142,8 +142,7 @@ ASSETFINDER_CONFIG = build_tool_config(
 
 SHUFFLEDNS_CONFIG = build_tool_config(
     "shuffledns", "subdomain",
-    wordlist=None,
-    resolver_file=None,
+    wordlist="SecLists/subdomains-top1million-5000.txt",
 )
 
 ALTERX_CONFIG = build_tool_config("alterx", "subdomain")
